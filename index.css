@@ -1,0 +1,214 @@
+/* Global Reset */
+
+
+/* Add this if Pacifico font is not loaded yet */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* Tagline Styling */
+.tagline {
+  color: #0066ff;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 40px;  
+}
+
+.tagline h1 {
+  font-size: 2.8rem;
+  color: #0066ff;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Container Layout */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* Row Layout */
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 0;
+}
+
+.column {
+  width: 48%;
+}
+
+/* Text Styling */
+.text h2 {
+  font-size: 2rem;
+  color: #2b2d42;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease-in-out;
+  text-shadow: 1px 1px 4px rgba(0, 102, 255, 0.15);
+}
+
+/* Text Emphasis */
+.text h2.emphasized {
+  text-shadow: 1px 1px 5px rgba(0, 102, 255, 0.2);
+  color: #0077cc;
+}
+
+/* Image Styling */
+.hover-effect-image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Image Hover Effect */
+.hover-effect-image:hover {
+  transform: translateY(-10px) scale(1.05);
+}
+
+/* Call to Action Section */
+.cta-section {
+  text-align: center;
+  padding: 60px 0;
+  background-color: #0051cc;
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 81, 204, 0.3);
+}
+
+.cta-section h3 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.cta-section p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  letter-spacing: 0.5px;
+}
+
+input[type="email"] {
+  padding: 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+  width: 60%;
+  border: none;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+button {
+  background-color: white;
+  color: #0051cc;
+  font-size: 1.1rem;
+  padding: 15px 50px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 3px 12px rgba(0, 81, 204, 0.2);
+}
+
+button:hover {
+  background-color: #0051cc;
+  color: white;
+  box-shadow: 0 5px 20px rgba(0, 81, 204, 0.4);
+}
+
+/* Hover Effects for Text */
+.hover-effect-text:hover {
+  transform: translateY(-5px);
+}
+
+/* Emphasize text for Time and Cost with icons */
+.with-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.with-icons i {
+  color: #0051cc;
+  font-size: 1.5rem;
+}
+
+/* Extra styling for emphasized phrases */
+.emphasize {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #0066ff;
+}
+
+/* Image Fade-in Animation */
+.image-placeholder {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Zunga Special Styling */
+.zunga-highlight {
+  font-size: 3.5rem; /* Larger font size */
+  color: #0051cc; /* Blue color */
+  font-family: 'Pacifico', cursive; /* Funky, handwritten-style font */
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.text h2 .hover-effect-text {
+  font-size: 1.8rem;
+  color: #2b2d42;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Styling for the word "waste" */
+.text-large-red {
+  font-size: 3.5rem; /* Make it larger */
+  color: #ff0000; /* Red color */
+  font-weight: bold;
+}
+
+/* Styling for the rest of the text in blackish-grey */
+.text-grey {
+  font-size: 1.2rem;
+  color: #333; /* Blackish grey */
+  line-height: 1.5;
+  font-weight: 500;
+}
+

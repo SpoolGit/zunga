@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zunga - AI-Powered Developer Assistance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+  <!-- Tagline Section -->
+  <div class="tagline">
+    <h1>Meet deadlines and ship products faster</h1>
+  </div>
+
+  <div class="container">
+    <!-- Section 1: Left text and right image -->
+    <section class="row">
+      <div class="text">
+		  <h2 class="hover-effect-text text-grey">
+			Don’t <span class="text-large-red">waste</span> hours searching through countless posts on StackOverflow or other forums.
+		  </h2>
+	  </div>
+
+      <div class="column image">
+        <!-- Image for Stacked Pages (Placeholder) -->
+        <img src="images/img4.gif" alt="Stacked Pages" class="hover-effect-image" />
+      </div>
+    </section>
+
+    <!-- Section 2: Left image and right text -->
+    <section class="row">
+      <div class="column image">
+        <!-- Image for Happy Coder (Placeholder) -->
+        <img src="images/img3.gif" alt="Happy Coder" class="hover-effect-image" />
+      </div>
+      <div class="column text">
+		  <h2 class="hover-effect-text text-grey">
+			Let <span class="zunga-highlight">Zunga</span> instantly help you solve your development issues with AI-powered code solutions.
+		  </h2>
+
+		  <!-- Emphasized section with icons -->
+		  <p class="with-icons">
+			<i class="fas fa-clock"></i> With Less Time
+		  </p>
+		  <p class="with-icons">
+			<i class="fas fa-dollar-sign"></i> And Less Cost
+		  </p>
+		</div>
+    </section>
+
+    <!-- Call to action section -->
+    <section class="cta-section">
+      <h3>Get Instant Solutions</h3>
+      <p>Enter your email and start receiving solutions to your developer challenges, powered by AI.</p>
+      <input type="email" id="email" placeholder="Enter your email" />
+      <button onclick="goToDashboard()">Get Started</button>
+    </section>
+  </div>
+
+  <script>
+    function goToDashboard() {
+      const email = document.getElementById('email').value;
+      if (email) {
+        window.location.href = 'dashboard.html'; // Redirect to dashboard
+      } else {
+        alert('Please enter a valid email address');
+      }
+    }
+  </script>
+</body>
+
+</html>
