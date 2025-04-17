@@ -1,3 +1,4 @@
+document.addEventListener("DOMContentLoaded", function () {
 (function () {
   // STEP 1: Create and style chat button
   const chatBtn = document.createElement('div');
@@ -105,3 +106,4 @@
   //Clients need to add:
   //<script src="https://spoolgit.github.io/zunga/widget.js"></script>
 })();
+});
