@@ -2,7 +2,7 @@
   // Load CSS file
   const link = document.createElement('link');
   link.rel = 'stylesheet';
-  link.href = 'https://yourdomain.com/widget.css'; // CHANGE THIS to your hosted CSS
+  link.href = 'https://spoolgit.github.io/zunga/widget.css'; // CHANGE THIS to your hosted CSS
   document.head.appendChild(link);
 
   // Chat Button
