@@ -1,65 +1,63 @@
 document.addEventListener("DOMContentLoaded", function () {
 (function () {
-  // STEP 1: Create and style chat button
+  // Load CSS file
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = 'https://spoolgit.github.io/zunga/widget.css';
+  document.head.appendChild(link);
+
+  // Chat Button
   const chatBtn = document.createElement('div');
-  chatBtn.innerText = '💬';
-  Object.assign(chatBtn.style, {
-    position: 'fixed', bottom: '20px', right: '20px',
-    width: '50px', height: '50px', background: '#000',
-    color: '#fff', borderRadius: '50%', textAlign: 'center',
-    lineHeight: '50px', cursor: 'pointer', zIndex: 9999,
-  });
+  chatBtn.id = 'zunga-chat-button';
+  chatBtn.innerHTML = '💬';
   document.body.appendChild(chatBtn);
 
-  // STEP 2: Create chat box
+  // Chat Box
   const chatBox = document.createElement('div');
-  Object.assign(chatBox.style, {
-    position: 'fixed', bottom: '80px', right: '20px',
-    width: '300px', height: '400px', background: '#fff',
-    border: '1px solid #ccc', borderRadius: '10px',
-    display: 'none', flexDirection: 'column',
-    zIndex: 9999, fontFamily: 'sans-serif',
-  });
+  chatBox.id = 'zunga-chat-box';
+  chatBox.style.display = 'none';
   document.body.appendChild(chatBox);
 
-  // Chat area
+  // Messages Area
   const messages = document.createElement('div');
-  messages.style.flex = '1';
-  messages.style.overflowY = 'auto';
-  messages.style.padding = '10px';
+  messages.id = 'zunga-messages';
+  chatBox.appendChild(messages);
 
-  // Input box
+  // Input Wrapper
   const inputWrapper = document.createElement('div');
-  inputWrapper.style.display = 'flex';
-  inputWrapper.style.borderTop = '1px solid #eee';
+  inputWrapper.id = 'zunga-input-wrapper';
 
   const input = document.createElement('input');
   input.type = 'text';
   input.placeholder = 'Type a message...';
-  Object.assign(input.style, {
-    flex: '1', padding: '10px', border: 'none', outline: 'none'
-  });
+  input.id = 'zunga-input';
 
   const sendBtn = document.createElement('button');
+  sendBtn.id = 'zunga-send';
   sendBtn.innerText = '➤';
-  Object.assign(sendBtn.style, {
-    padding: '10px', border: 'none', background: '#000',
-    color: '#fff', cursor: 'pointer'
-  });
 
   inputWrapper.appendChild(input);
   inputWrapper.appendChild(sendBtn);
-  chatBox.appendChild(messages);
   chatBox.appendChild(inputWrapper);
 
-  // STEP 3: Toggle chat
+  // Open/Close Logic
   chatBtn.onclick = () => {
     chatBox.style.display = chatBox.style.display === 'none' ? 'flex' : 'none';
   };
 
-  // STEP 4: Send message to backend
-  async function sendMessage(text) {
+  // Message Rendering
+  function appendMessage(sender, text) {
+    const msg = document.createElement('div');
+    msg.className = sender === 'user' ? 'zunga-msg user' : 'zunga-msg bot';
+    msg.innerText = text;
+    messages.appendChild(msg);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  // Send Logic (mocked)
+  function sendMessage(text) {
     appendMessage('user', text);
+    input.value = '';
 
     try {
       //const res = await fetch('https://yourdomain.com/api/chat', {
@@ -70,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
       //const data = await res.json();
       //appendMessage('bot', data.reply || '[No reply]');
 	  setTimeout(() => {
-		  const dummyReply = `You said: "${text}". Here's a dummy reply.`;
+		  const dummyReply = `You said: "${text}". Here's a dummy reply11.`;
 		  appendMessage('bot', dummyReply);
 	  }, 800); // simulate delay
     } catch (err) {
@@ -78,32 +76,20 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // STEP 5: Handle UI message appending
-  function appendMessage(sender, text) {
-    const msg = document.createElement('div');
-    msg.innerText = text;
-    msg.style.margin = '5px 0';
-    msg.style.textAlign = sender === 'user' ? 'right' : 'left';
-    msg.style.color = sender === 'user' ? '#000' : '#333';
-    messages.appendChild(msg);
-    messages.scrollTop = messages.scrollHeight;
-  }
-
-  // STEP 6: Handle send click
+  // Button & Enter Key
   sendBtn.onclick = () => {
     const text = input.value.trim();
-    if (text) {
-      sendMessage(text);
-      input.value = '';
-    }
+    if (text) sendMessage(text);
   };
 
-  // Optional: Enter key to send
   input.addEventListener('keydown', e => {
     if (e.key === 'Enter') sendBtn.click();
   });
   
+  
   //Clients need to add:
   //<script src="https://spoolgit.github.io/zunga/widget.js"></script>
+  
 })();
+
 });
