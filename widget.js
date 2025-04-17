@@ -67,7 +67,7 @@
       //const data = await res.json();
       //appendMessage('bot', data.reply || '[No reply]');
 	  setTimeout(() => {
-		  const dummyReply = `You said: "${text}". Here's a dummy reply.`;
+		  const dummyReply = `You said: "${text}". Here's a dummy reply11111.`;
 		  appendMessage('bot', dummyReply);
 	  }, 800); // simulate delay
     } catch (err) {
