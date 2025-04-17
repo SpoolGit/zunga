@@ -1,0 +1,86 @@
+#zunga-chat-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 52px;
+  height: 52px;
+  background-color: #007aff;
+  color: #fff;
+  font-size: 22px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 52px;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+#zunga-chat-box {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 340px;
+  height: 460px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 9999;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+#zunga-messages {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background-color: #f9f9f9;
+}
+
+.zunga-msg {
+  padding: 10px 14px;
+  max-width: 80%;
+  font-size: 14px;
+  line-height: 1.4;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  white-space: pre-wrap;
+}
+
+.zunga-msg.user {
+  align-self: flex-end;
+  background-color: #007aff;
+  color: #fff;
+}
+
+.zunga-msg.bot {
+  align-self: flex-start;
+  background-color: #e4e4e4;
+  color: #000;
+}
+
+#zunga-input-wrapper {
+  display: flex;
+  border-top: 1px solid #ddd;
+}
+
+#zunga-input {
+  flex: 1;
+  border: none;
+  padding: 14px;
+  font-size: 14px;
+  outline: none;
+}
+
+#zunga-send {
+  padding: 14px;
+  border: none;
+  background: #007aff;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}

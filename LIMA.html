@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIMA - Prepare for Future</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            overflow-x: hidden;
+        }
+        
+        #sidebar {
+            min-height: calc(100vh - 56px);
+            background-color: #f8f9fa;
+            padding-top: 20px;
+            transition: margin-left 0.3s ease-in-out;
+        }
+        
+        #sidebar.collapsed {
+            margin-left: -100%;
+        }
+        
+        #sidebar .nav-link {
+            color: #333;
+            border-radius: 0;
+            padding: 10px 20px;
+        }
+        
+        #sidebar .nav-link:hover {
+            background-color: #e9ecef;
+        }
+        
+        #sidebar .nav-link.active {
+            background-color: #0d6efd;
+            color: white;
+        }
+        
+        .header {
+            background-color: #343a40;
+            color: white;
+            padding: 15px 0;
+        }
+        
+        .content {
+            padding: 20px;
+            transition: margin-left 0.3s ease-in-out;
+        }
+        
+        .content.expanded {
+            margin-left: 0;
+        }
+        
+        .card {
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            cursor: pointer;
+            padding: 12px 15px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid rgba(0,0,0,0.125);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .card-header h5 {
+            margin: 0;
+            font-weight: 500;
+        }
+        
+        .card-body {
+            display: none;
+            padding: 15px;
+        }
+        
+        .card.expanded .card-body {
+            display: block;
+        }
+        
+        .card.expanded .card-header {
+            background-color: rgba(13, 110, 253, 0.1);
+            color: #0d6efd;
+        }
+        
+        .card.expanded .expand-icon::after {
+            content: "-";
+        }
+        
+        .expand-icon::after {
+            content: "+";
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        #sidebarToggle {
+            cursor: pointer;
+            margin-right: 15px;
+        }
+        
+        .feedback-dropdown {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            margin-top: 8px;
+            border: 1px solid #CCC;
+            border-radius: 5px;
+            background-color: #FFF;
+            font-size: 1em;
+            color: #333;
+        }
+
+        .feedback-dropdown:focus {
+            border-color: #3498DB;
+            outline: none;
+        }
+
+        .feedback-container {
+            margin-top: 15px;
+        }
+        
+        @media (max-width: 767.98px) {
+            #sidebar {
+                margin-left: -100%;
+                position: fixed;
+                z-index: 1000;
+                width: 80%;
+                max-width: 300px;
+                height: 100%;
+            }
+            
+            #sidebar.show {
+                margin-left: 0;
+            }
+            
+            .sidebar-backdrop {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            }
+            
+            .sidebar-backdrop.show {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 d-flex align-items-center">
+                    <button id="sidebarToggle" class="btn btn-link text-white">
+                        <i class="bi bi-list fs-4"></i>
+                    </button>
+                    <h1 class="text-center flex-grow-1">LIMA - Prepare for Future</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="sidebar-backdrop"></div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                <div class="position-sticky">
+                    <ul class="nav flex-column">
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" data-target="section1">
+                                Prospect Description
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link " href="#" data-target="section2">
+                                Summary
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link " href="#" data-target="section3">
+                                CRM Notes
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link " href="#" data-target="section4">
+                                Icebreakers
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link " href="#" data-target="section5">
+                                Pain Points
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link " href="#" data-target="section6">
+                                LinkedIn Prospect Research
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link " href="#" data-target="section7">
+                                News Summary
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link " href="#" data-target="section8">
+                                Customized Value Proposition
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link " href="#" data-target="section9">
+                                Relevant Experience
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link " href="#" data-target="section10">
+                                Qualification Questions
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link " href="#" data-target="section11">
+                                Recommended Product
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link " href="#" data-target="section12">
+                                Handling Objection
+                            </a>
+                        </li>
+                        
+
+                        
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 content">
+                <!-- Meeting Information Section -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body" style="display: block;">
+                                <div class="row">
+                                    <div class="col-md-3 mb-2 mb-md-0">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-person-fill me-2"></i>
+                                            <div>
+                                                <small class="text-muted d-block">Contact Us</small>
+                                                <strong id="seller-email" name="seller_email">lima@gmail.com</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb-2 mb-md-0">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-link me-2"></i>
+                                            <div>
+                                                <small class="text-muted d-block">Show your interest</small>
+                                                <strong id="prospect-email" name="prospect_email">www.somegoogleform.com</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb-2 mb-md-0">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-calendar-event me-2"></i>
+                                            <div>
+                                                <small class="text-muted d-block">Book a meeting</small>
+                                                <strong id="meeting-datetime" name="meeting_datetime">Your calendly link</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-telephone-fill me-2"></i>
+                                            <div>
+                                                <small class="text-muted d-block">Connect on WhatsApp</small>
+                                                <strong id="call-type" name="call_type">WhatsApp no</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				
+				<div style="display: flex; justify-content: center; margin: 20px 0;">
+					<button id="submitBtn"
+							onclick="submit()"
+							style="background-color: #1976d2; color: white; padding: 10px 20px;
+								   border: none; border-radius: 5px; font-size: 16px; cursor: pointer;
+								   box-shadow: 0px 2px 5px rgba(0,0,0,0.2);">
+						Submit
+					</button>
+				</div>
+
+                <div class="row">
+                    <!-- First Column -->
+                    <div class="col-md-6">
+                        
+                        
+<div class="card " id="section1">
+	<div class="card-header" onclick="toggleCard('section1')">
+		<h5>Book Title</h5>
+		<span class="expand-icon"></span>
+	</div>
+	<div class="card-body" name="prospect_description">
+		<label for="bookTitle" style="font-weight: display: block; margin-bottom: 8px;">
+			Enetr a book title if you have in Mind. Don't worry if you dont have one and we will help you generate one. 
+		</label>
+		<input type="text" id="bookTitle" name="bookTitle" placeholder="Enter book title here"
+			   style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" />
+	</div>
+</div>
+                        
+                   
+<div class="card " id="section3">
+	<div class="card-header" onclick="toggleCard('section3')">
+		<h5>Target Audience</h5>
+		<span class="expand-icon"></span>
+	</div>
+    <div class="card-body" name="summary">
+        <label for="bookPremise" style="font-weight: display: block; margin-bottom: 8px;">
+            Who is this book for? Be specific (e.g., individuals, corporates, students, self-help), not more than 100 words
+ 
+        </label>
+        <textarea id="bookPremise" name="bookPremise" rows="5"
+                  placeholder="Write your book premise here..."
+                  style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; resize: vertical;"
+                  oninput="enforceWordLimit(this, 100)">
+        </textarea>
+    </div>
+</div>
+                        
+                       
+<div class="card " id="section5">
+	<div class="card-header" onclick="toggleCard('section5')">
+		<h5>Preferred Tone*</h5>
+		<span class="expand-icon"></span>
+	</div>
+	<div class="card-body" name="pain_points">
+
+		
+		<div class="feedback-container">
+			<label for="feedback-pain_points">Select the tone of generation: </label>
+			<select id="feedback-pain_points" class="feedback-dropdown" onchange="updateFeedback('pain_points', this.value)">
+				<option value="">Not selected</option>
+				
+				<option value="Conversational">Conversational</option>
+				
+				<option value="Professional">Professional</option>
+				
+				<option value="Casual">Casual</option>
+				
+				<option value="Story-driven">Story-driven</option>
+				
+				<option value="Insight-heavy">Insight-heavy</option>
+				
+			</select>
+		</div>
+	</div>
+</div>
+                      
+                        
+<div class="card " id="section7">
+	<div class="card-header" onclick="toggleCard('section7')">
+		<h5>News Summary</h5>
+		<span class="expand-icon"></span>
+	</div>
+	<div class="card-body" name="news_summary">
+		
+<h6>Latest News for Tekmon (Ordered from Most Recent)</h6>
+
+<ol>
+<li><strong>1 day ago</strong>: Tekmon participated in SEV Business Day at Sabo S.A. in Evia, where their COO Panos Mitsios presented their no-code, AI-driven digital solutions for quality, health &amp; safety, asset management, technical maintenance, and ESG reporting.</li>
+
+<li><strong>6 days ago</strong>: Tekmon participated in the Smart Factory Conference organized by Boussias on March 18, where COO Panos Mitsios spoke about the shift from custom software to AI-driven, no-build solutions in manufacturing.</li>
+
+<li><strong>1 week ago</strong>: Tekmon published a blog post about Positive Performance Indicators (PPIs) for safety culture, focusing on proactive prevention strategies rather than reactive problem-solving.</li>
+
+<li><strong>2 weeks ago</strong>: Tekmon announced their participation in the Smart Factory Conference on March 18, where COO Panos Mitsios would share insights on AI-driven no-build solutions.</li>
+
+<li><strong>2 weeks ago</strong>: Tekmon shared information about three key trends for Environmental, Health, and Safety (EHS) in 2025, including carbon emissions monitoring, banning harmful chemicals, and workplace safety.</li>
+
+<li><strong>3 weeks ago</strong>: Tekmon published a new blog post exploring 25 key ESG metrics to help organizations measure, assess, and improve sustainability performance.</li>
+
+<li><strong>1 month ago</strong>: Tekmon attended two key events in Saudi Arabia - the World ESG Summit (Feb 10-11) where they signed an MOU with Environmental Horizons Co., and HSE Week KSA (Feb 19-20) where they were an exhibit partner.</li>
+
+<li><strong>1 month ago</strong>: Tekmon published a blog post about the 15 essential features of a high-quality management system (QMS).</li>
+
+<li><strong>1 month ago</strong>: Tekmon shared a video about their client Paliria, a global leader in dolma &amp; vine leaves production, who has implemented Tekmon QMS to streamline quality management across facilities in 4 countries.</li>
+
+<li><strong>2 months ago</strong>: Tekmon celebrated a year of strong growth, welcoming over 50 new corporates and international partners into their no-code digital products ecosystem.</li>
+</ol>
+
+		
+		<div class="feedback-container">
+			<label for="feedback-news_summary">Feedback: </label>
+			<select id="feedback-news_summary" class="feedback-dropdown" onchange="updateFeedback('news_summary', this.value)">
+				<option value="">Not selected</option>
+				
+				<option value="Not selected">Not selected</option>
+				
+				<option value="Misleading content">Misleading content</option>
+				
+				<option value="Not valuable">Not valuable</option>
+				
+				<option value="Slightly valuable">Slightly valuable</option>
+				
+				<option value="Great content">Great content</option>
+				
+				<option value="You have nailed it">You have nailed it</option>
+				
+			</select>
+		</div>
+	</div>
+</div>
+
+
+<div class="card " id="section9">
+	<div class="card-header" onclick="toggleCard('section9')">
+		<h5>Relevant Experience</h5>
+		<span class="expand-icon"></span>
+	</div>
+	<div class="card-body" name="relevant_experience">
+		
+<h6>1. Cyclopt</h6>
+<p>Similar to Tekmon in vertical (Software Development), geography (both based in Greece), and company size (10 employees vs. 23 employees). Value: Crafted go-to-market plan from scratch, built sales infrastructure, added new $250k pipeline from new European markets.</p>
+
+<h6>2. Maekersuite</h6>
+<p>Similar to Tekmon in vertical (Software Development) and geography (both have presence in London, UK). Value: Built go-to-market motion from scratch, defined new ideal customer profile & new pricing model, acquired 3 logo paying customers within the first 2 months.</p>
+
+<h6>3. Palowise</h6>
+<p>Similar to Tekmon in geography (both based in Greece) and company size (22 employees vs. 23 employees). Value: Built sales infrastructure from scratch, generated 3 new opportunities/week at 30k annual contract value, added new 300k pipeline within the first month.</p>
+
+		
+		<div class="feedback-container">
+			<label for="feedback-relevant_experience">Feedback: </label>
+			<select id="feedback-relevant_experience" class="feedback-dropdown" onchange="updateFeedback('relevant_experience', this.value)">
+				<option value="">Not selected</option>
+				
+				<option value="Not selected">Not selected</option>
+				
+				<option value="Misleading content">Misleading content</option>
+				
+				<option value="Not valuable">Not valuable</option>
+				
+				<option value="Slightly valuable">Slightly valuable</option>
+				
+				<option value="Great content">Great content</option>
+				
+				<option value="You have nailed it">You have nailed it</option>
+				
+			</select>
+		</div>
+	</div>
+</div>
+
+
+<div class="card " id="section11">
+	<div class="card-header" onclick="toggleCard('section11')">
+		<h5>Recommended Product</h5>
+		<span class="expand-icon"></span>
+	</div>
+	<div class="card-body" name="recommended_product">
+		
+<h4>Top 5 Product/Service Features for Tekmon</h4>
+
+<ol>
+<li>AI-powered tools and integration</li>
+<li>Tailor-made GTM strategy</li>
+<li>Sales infrastructure setup</li>
+<li>Tech stack integration</li>
+<li>ESG reporting and compliance support</li>
+</ol>
+
+		
+		<div class="feedback-container">
+			<label for="feedback-recommended_product">Feedback: </label>
+			<select id="feedback-recommended_product" class="feedback-dropdown" onchange="updateFeedback('recommended_product', this.value)">
+				<option value="">Not selected</option>
+				
+				<option value="Not selected">Not selected</option>
+				
+				<option value="Misleading content">Misleading content</option>
+				
+				<option value="Not valuable">Not valuable</option>
+				
+				<option value="Slightly valuable">Slightly valuable</option>
+				
+				<option value="Great content">Great content</option>
+				
+				<option value="You have nailed it">You have nailed it</option>
+				
+			</select>
+		</div>
+	</div>
+</div>
+
+                       
+                        
+                    </div>
+                    
+                    <!-- Second Column -->
+                    <div class="col-md-6">
+                        
+                        
+<!-- <div class="card expanded" id="section2"> -->
+<div class="card " id="section2">
+    <div class="card-header" onclick="toggleCard('section2')">
+        <h5>Book Premise*</h5>
+        <span class="expand-icon"></span>
+    </div>
+    <div class="card-body" name="summary">
+        <label for="bookPremise" style="font-weight: display: block; margin-bottom: 8px;">
+            Enter your book premise as a short paragraph. Please note the more information you will enter, the better outline will be geenrated in stage one. However, try to be within 500 words. You will get a chance again to enter your detaield knowledge base. 
+        </label>
+        <textarea id="bookPremise" name="bookPremise" rows="5"
+                  placeholder="Write your book premise here..."
+                  style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; resize: vertical;"
+                  oninput="enforceWordLimit(this, 500)">
+        </textarea>
+    </div>
+</div>
+                        
+
+<div class="card" id="section4">
+	<div class="card-header" onclick="toggleCard('section4')">
+		<h5>Author Background</h5>
+		<span class="expand-icon"></span>
+	</div>
+    <div class="card-body" name="summary">
+        <label for="bookPremise" style="font-weight: display: block; margin-bottom: 8px;">
+            Enter your background details not more than 500 words. 
+        </label>
+        <textarea id="bookPremise" name="bookPremise" rows="5"
+                  placeholder="Write your book premise here..."
+                  style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; resize: vertical;"
+                  oninput="enforceWordLimit(this, 500)">
+        </textarea>
+    </div>
+</div>
+                        
+                      
+                        
+<div class="card" id="section6">
+	<div class="card-header" onclick="toggleCard('section6')">
+		<h5>Preferred Book Structure*</h5>
+		<span class="expand-icon"></span>
+	</div>
+	<div class="card-body" name="linkedin_prospect_research">
+		
+		<div class="feedback-container">
+			<label for="feedback-pain_points">Select Preferred Book Structure: </label>
+			<select id="feedback-pain_points" class="feedback-dropdown" onchange="updateFeedback('pain_points', this.value)">
+				<option value="">Not selected</option>
+				
+				<option value="Step-by-step">Step-by-step</option>
+				
+				<option value="Thematic-Modules">Thematic Modules</option>
+				
+				<option value="Story-Framework">Story + Framework</option>
+				
+				<option value="Problem-Solution">Problem-Solution</option>
+				
+			</select>
+		</div>
+	</div>
+</div>
+                        
+                        
+<div class="card" id="section8">
+	<div class="card-header" onclick="toggleCard('section8')">
+		<h5>Customized Value Proposition</h5>
+		<span class="expand-icon"></span>
+	</div>
+	<div class="card-body" name="customized_value_proposition">
+		
+<ul>
+<li>Accelerate your QHSE &amp; ESG compliance with our AI-powered B2B growth framework, transforming manual processes into streamlined digital workflows in days, not months - perfect for your 23-person team looking to optimize audit, inspection, and emergency response processes.</li>
+<li>Leverage our proven 4S framework (Search, Service, Sales, Scale) to systematically expand your no-code platform across European markets, with specialized expertise in helping Greek tech companies like yours enter new territories and acquire high-value customers.</li>
+<li>Gain hands-on support from experienced operators who will work alongside your team to build a predictable growth engine, combining AI-powered tools with deep industry knowledge to help Tekmon maximize ROI on digital transformation investments.</li>
+</ul>
+
+		
+		<div class="feedback-container">
+			<label for="feedback-customized_value_proposition">Feedback: </label>
+			<select id="feedback-customized_value_proposition" class="feedback-dropdown" onchange="updateFeedback('customized_value_proposition', this.value)">
+				<option value="">Not selected</option>
+				
+				<option value="Not selected">Not selected</option>
+				
+				<option value="Misleading content">Misleading content</option>
+				
+				<option value="Not valuable">Not valuable</option>
+				
+				<option value="Slightly valuable">Slightly valuable</option>
+				
+				<option value="Great content">Great content</option>
+				
+				<option value="You have nailed it">You have nailed it</option>
+				
+			</select>
+		</div>
+	</div>
+</div>
+
+
+<div class="card" id="section10">
+	<div class="card-header" onclick="toggleCard('section10')">
+		<h5>Qualification Questions</h5>
+		<span class="expand-icon"></span>
+	</div>
+	<div class="card-body" name="qualification_questions">
+		
+<h4>5 Key Qualification Questions for Tekmon</h4>
+
+<p>Based on Tekmon's profile and your business offering B2B go-to-market services for startups, here are the 5 most relevant qualification questions to ask this prospect:</p>
+
+<ol>
+<li><strong>Current Go-to-Market Strategy</strong>: "Could you share your current approach to customer acquisition and market expansion beyond Greece and the UK? What channels have been most effective for you so far?"</li>
+
+<li><strong>Growth Challenges</strong>: "As a no-code QHSE & ESG platform with 23 employees, what are your biggest obstacles to scaling your customer base in new markets or industries?"</li>
+
+<li><strong>Sales Process Maturity</strong>: "How developed is your current sales infrastructure and process? Do you have a repeatable sales methodology that's delivering predictable results?"</li>
+
+<li><strong>Target Market Clarity</strong>: "Beyond the industries you currently serve (Manufacturing, Construction, Transportation, Retail, and Logistics), are there specific verticals or company sizes where you see the greatest product-market fit?"</li>
+
+<li><strong>Growth Objectives</strong>: "What are your specific growth targets for the next 6-12 months in terms of revenue, customer acquisition, or geographic expansion, and how do you currently measure success?"</li>
+</ol>
+
+<p>These questions will help determine if Tekmon is a good fit for your B2B go-to-market services by uncovering their current challenges, growth objectives, and readiness to benefit from your expertise in helping startups expand and acquire customers systematically.</p>
+
+		
+		<div class="feedback-container">
+			<label for="feedback-qualification_questions">Feedback: </label>
+			<select id="feedback-qualification_questions" class="feedback-dropdown" onchange="updateFeedback('qualification_questions', this.value)">
+				<option value="">Not selected</option>
+				
+				<option value="Not selected">Not selected</option>
+				
+				<option value="Misleading content">Misleading content</option>
+				
+				<option value="Not valuable">Not valuable</option>
+				
+				<option value="Slightly valuable">Slightly valuable</option>
+				
+				<option value="Great content">Great content</option>
+				
+				<option value="You have nailed it">You have nailed it</option>
+				
+			</select>
+		</div>
+	</div>
+</div>
+
+
+<div class="card" id="section12">
+                            <div class="card-header" onclick="toggleCard('section12')">
+                                <h5>Handling Objection</h5>
+                                <span class="expand-icon"></span>
+                            </div>
+                            <div class="card-body" name="handling_objection">
+                                
+<h4>Overcoming Objections for No-Code QHSE/ESG Platform</h4>
+
+<h5>For implementation time/complexity concerns:</h5>
+<ol>
+    <li><strong>Emphasize no-code simplicity</strong>: Our platform is specifically designed for non-technical users with intuitive interfaces that require minimal training.</li>
+    <li><strong>Phased implementation approach</strong>: We can start with core modules most relevant to your needs and gradually expand, minimizing disruption.</li>
+    <li><strong>Dedicated implementation support</strong>: Despite your small team size, our hands-on support ensures smooth onboarding with minimal time investment from your staff.</li>
+</ol>
+
+<h5>For budget constraints/ROI uncertainty:</h5>
+<ol>
+    <li><strong>Scalable pricing model</strong>: Our solution is designed to grow with your company, with pricing that aligns with your 23-employee size.</li>
+    <li><strong>Quick ROI timeline</strong>: Most clients see measurable returns within 3-6 months through reduced compliance costs and operational efficiencies.</li>
+    <li><strong>Risk reduction value</strong>: Quantify the cost of potential compliance failures or safety incidents that the platform helps prevent.</li>
+    <li><strong>Competitive advantage</strong>: The platform enables you to meet increasingly stringent client requirements for QHSE/ESG standards, opening new business opportunities.</li>
+</ol>
+
+                                
+                                <div class="feedback-container">
+                                    <label for="feedback-handling_objection">Feedback: </label>
+                                    <select id="feedback-handling_objection" class="feedback-dropdown" onchange="updateFeedback('handling_objection', this.value)">
+                                        <option value="">Not selected</option>
+                                        
+                                        <option value="Not selected">Not selected</option>
+                                        
+                                        <option value="Misleading content">Misleading content</option>
+                                        
+                                        <option value="Not valuable">Not valuable</option>
+                                        
+                                        <option value="Slightly valuable">Slightly valuable</option>
+                                        
+                                        <option value="Great content">Great content</option>
+                                        
+                                        <option value="You have nailed it">You have nailed it</option>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                      
+                    
+					</div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://spoolgit.github.io/zunga/widget.js"></script>
+    <!-- Custom JavaScript -->
+    <script>
+        // Object to store feedback selections
+        let feedbackSelections = {};
+        const currentUrl = window.location.href;
+        const url = "https://script.google.com/macros/s/AKfycbxDiMlipL6p6Xqou6uKOEErASx51sPwyB1BZ_xQX5cbuqYKO5dgi6OZZ26RtTEIo38/exec";
+        
+		
+		function submit() {
+			// Collect values
+			const title = document.getElementById('bookTitle')?.value || '';
+			const premise = document.getElementById('bookPremise')?.value || '';
+
+			console.log("Book Title:", title);
+			console.log("Book Premise:", premise);
+
+			// You can replace the logs with API calls or validation
+			alert("Form submitted!\n\nTitle: " + title + "\nPremise: " + premise);
+		}
+	
+		function enforceWordLimit(textarea, maxWords) {
+			const words = textarea.value.trim().split(/\s+/);
+			const wordCount = textarea.value.trim() === "" ? 0 : words.length;
+
+			if (wordCount > maxWords) {
+				// Trim to maxWords
+				textarea.value = words.slice(0, maxWords).join(" ");
+			}
+
+			// Update word count display
+			document.getElementById('wordCount').innerText = `${Math.min(wordCount, maxWords)} / ${maxWords} words`;
+		}
+		
+        // Function to toggle card expansion
+        function toggleCard(cardId) {
+            const card = document.getElementById(cardId);
+            
+            // If the card is already expanded, collapse it
+            if (card.classList.contains('expanded')) {
+                card.classList.remove('expanded');
+            } else {
+                // Otherwise, expand it
+                card.classList.add('expanded');
+            }
+            
+            // Update sidebar active state
+            updateSidebarActiveState(cardId);
+        }
+        
+        // Function to update sidebar active state
+        function updateSidebarActiveState(cardId) {
+            const sidebarLinks = document.querySelectorAll('#sidebar .nav-link');
+            
+            sidebarLinks.forEach(link => {
+                if (link.getAttribute('data-target') === cardId) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+        
+        function sendPageLoadData() {
+            // Get the values of seller_email and prospect_email from the HTML elements
+            const sellerEmail = document.querySelector('[name="seller_email"]').innerText.trim();
+            const prospectEmail = document.querySelector('[name="prospect_email"]').innerText.trim();
+
+            // Prepare the data to be sent
+            const dataToSend = {
+                seller_email: sellerEmail,
+                prospect_email: prospectEmail,
+                docURL: currentUrl
+                // Do not include feedbackSelections here
+            };
+
+            // Send the data to the backend (Google Apps Script)
+            fetch(url, {
+                method: "POST",
+                mode: "no-cors",  // Enable CORS mode
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(dataToSend) // Send the seller_email and prospect_email data
+            })
+            .then(response => response.text())
+            .then(data => console.log("Data sent successfully:", data))
+            .catch(error => console.error("Error sending data:", error));
+        }
+
+        function sendFeedbackToGoogleSheet() {
+            // Get seller_email and prospect_email values from the HTML page
+            const sellerEmail = document.querySelector('[name="seller_email"]').innerText.trim();
+            const prospectEmail = document.querySelector('[name="prospect_email"]').innerText.trim();
+
+            // Add seller_email and prospect_email to the feedbackSelections object
+            const feedbackSelectionsWithEmails = {
+                ...feedbackSelections,  // Existing feedback selections
+                seller_email: sellerEmail,
+                prospect_email: prospectEmail,
+                docURL: currentUrl
+            };
+
+            fetch(url, {
+                method: "POST",
+                mode: "no-cors",  // Enable CORS mode
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(feedbackSelectionsWithEmails), // Send updated data
+            })
+            .then(response => response.text())
+            .then(data => console.log("Feedback stored:", data))
+            .catch(error => console.error("Error saving feedback:", error));
+        }    
+
+        // Function to update feedback for each section and log all selections
+        function updateFeedback(sectionId, selectedValue) {
+            feedbackSelections[sectionId] = selectedValue;
+            
+            // Log all selections in the console
+            console.clear(); // Clears previous logs for better visibility
+            console.log("Updated Feedback Selections:");
+            console.table(feedbackSelections); // Display in table format for readability
+            sendFeedbackToGoogleSheet();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle sidebar link clicks
+            const sidebarLinks = document.querySelectorAll('#sidebar .nav-link');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const mainContent = document.querySelector('.content');
+            const backdrop = document.querySelector('.sidebar-backdrop');
+            
+            // Toggle sidebar
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('show');
+                backdrop.classList.toggle('show');
+            });
+            
+            // Close sidebar when clicking on backdrop (mobile)
+            backdrop.addEventListener('click', function() {
+                sidebar.classList.remove('show');
+                backdrop.classList.remove('show');
+            });
+            
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Get the target section
+                    const targetId = this.getAttribute('data-target');
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        // Toggle the card
+                        toggleCard(targetId);
+                        
+                        // Scroll to the section
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                        
+                        // On mobile, close the sidebar after clicking a link
+                        if (window.innerWidth < 768) {
+                            sidebar.classList.remove('show');
+                            backdrop.classList.remove('show');
+                        }
+                    }
+                });
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 768) {
+                    sidebar.classList.remove('show');
+                    backdrop.classList.remove('show');
+                }
+            });
+            
+            // Send page load data
+            sendPageLoadData();
+        });
+    </script>
+</body>
+</html> 
