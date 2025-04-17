@@ -2,7 +2,7 @@
   // Load CSS file
   const link = document.createElement('link');
   link.rel = 'stylesheet';
-  link.href = 'widget.css';  
+  //link.href = 'widget.css';  
   document.head.appendChild(link);
 
   // Chat Button
